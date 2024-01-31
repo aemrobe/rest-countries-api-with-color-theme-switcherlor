@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "run-script-os",
+    "start-parcel": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist",
     "start:win32": "browser-sync start --server --files '**/*.css, **/*.html, **/*.js, !node_modules/**/*' --directory --port 7777 --browser \"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\"",
     "//": "Hello! If you are having trouble running this command. Try changing Firefox Developer Edition to FirefoxDeveloperEdition",
     "start:darwin:linux": "browser-sync start --server --files '**/*.css, **/*.html, **/*.js, !node_modules/**/*' --directory --port 7777 --browser 'Chrome'"
@@ -13,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "browser-sync": "^3.0.2",
+    "parcel": "^2.11.0",
     "run-script-os": "^1.1.6"
   }
 }

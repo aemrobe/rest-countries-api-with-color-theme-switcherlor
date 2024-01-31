@@ -38,7 +38,7 @@
     <main>
       <div class="find-country">
         <!--search element-->
-        <div class="find-country__search">
+        <form class="find-country__search">
           <!--search icon-->
           <label class="find-country__search-icon" for="search-element">
             <span class="fa-solid fa-search"></span>
@@ -54,7 +54,12 @@
             class="find-country__search-input"
             placeholder="Search for a country..."
           />
-        </div>
+
+          <!--search results-->
+          <div class="find-country__search-results not-open">
+            <div class="find-country__search-results-container"></div>
+          </div>
+        </form>
 
         <!--filter by region-->
         <div class="find-country__filter-countries not-open">
@@ -99,137 +104,7 @@
         </div>
       </div>
 
-      <div class="list-of-countries">
-        <!--country item-->
-        <div class="country">
-          <img src="./src/imgs/flag-image.svg" alt="" class="country__flag" />
-
-          <div class="country__container">
-            <h2 class="country__name">Germany</h2>
-
-            <div class="country__static-container">
-              <div class="country__statics">
-                <p class="country__statics-title">Population:</p>
-                <p class="country__statics-item">323,947,000</p>
-              </div>
-
-              <div class="country__statics">
-                <p class="country__statics-title">Region:</p>
-                <p class="country__statics-item">Americas</p>
-              </div>
-
-              <div class="country__statics">
-                <p class="country__statics-title">Capital:</p>
-                <p class="country__statics-item">Washington, D.C</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--country item-->
-        <div class="country">
-          <img src="./src/imgs/flag-image.svg" alt="" class="country__flag" />
-
-          <div class="country__container">
-            <h2 class="country__name">Germany</h2>
-
-            <div class="country__static-container">
-              <div class="country__statics">
-                <p class="country__statics-title">Population:</p>
-                <p class="country__statics-item">323,947,000</p>
-              </div>
-
-              <div class="country__statics">
-                <p class="country__statics-title">Region:</p>
-                <p class="country__statics-item">Americas</p>
-              </div>
-
-              <div class="country__statics">
-                <p class="country__statics-title">Capital:</p>
-                <p class="country__statics-item">Washington, D.C</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--country item-->
-        <div class="country">
-          <img src="./src/imgs/flag-image.svg" alt="" class="country__flag" />
-
-          <div class="country__container">
-            <h2 class="country__name">Germany</h2>
-
-            <div class="country__static-container">
-              <div class="country__statics">
-                <p class="country__statics-title">Population:</p>
-                <p class="country__statics-item">323,947,000</p>
-              </div>
-
-              <div class="country__statics">
-                <p class="country__statics-title">Region:</p>
-                <p class="country__statics-item">Americas</p>
-              </div>
-
-              <div class="country__statics">
-                <p class="country__statics-title">Capital:</p>
-                <p class="country__statics-item">Washington, D.C</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--country item-->
-        <div class="country">
-          <img src="./src/imgs/flag-image.svg" alt="" class="country__flag" />
-
-          <div class="country__container">
-            <h2 class="country__name">Germany</h2>
-
-            <div class="country__static-container">
-              <div class="country__statics">
-                <p class="country__statics-title">Population:</p>
-                <p class="country__statics-item">323,947,000</p>
-              </div>
-
-              <div class="country__statics">
-                <p class="country__statics-title">Region:</p>
-                <p class="country__statics-item">Americas</p>
-              </div>
-
-              <div class="country__statics">
-                <p class="country__statics-title">Capital:</p>
-                <p class="country__statics-item">Washington, D.C</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--country item-->
-        <div class="country">
-          <img src="./src/imgs/flag-image.svg" alt="" class="country__flag" />
-
-          <div class="country__container">
-            <h2 class="country__name">Germany</h2>
-
-            <div class="country__static-container">
-              <div class="country__statics">
-                <p class="country__statics-title">Population:</p>
-                <p class="country__statics-item">323,947,000</p>
-              </div>
-
-              <div class="country__statics">
-                <p class="country__statics-title">Region:</p>
-                <p class="country__statics-item">Americas</p>
-              </div>
-
-              <div class="country__statics">
-                <p class="country__statics-title">Capital:</p>
-                <p class="country__statics-item">Washington, D.C</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="list-of-countries"></div>
     </main>
 
     <!--footer-->

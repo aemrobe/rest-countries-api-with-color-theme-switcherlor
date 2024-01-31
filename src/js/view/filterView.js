@@ -17,8 +17,6 @@ class FilterView {
         const targetElement = this.parentElement.querySelector(".sr-only");
         const collapseIcon = targetElement.previousElementSibling;
 
-        console.log(collapseIcon);
-
         if (targetElement.innerText.includes("collapse")) {
           collapseIcon.classList.remove("fa-chevron-down");
           collapseIcon.classList.add("fa-chevron-up");
