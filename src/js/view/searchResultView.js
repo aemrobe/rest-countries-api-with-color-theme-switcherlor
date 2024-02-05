@@ -1,4 +1,5 @@
 import View from "./view.js";
+import displayCountryView from "./displayCountryView.js";
 
 class SearchResultView extends View {
   _parentElement = document.querySelector(".find-country__search");
@@ -10,38 +11,97 @@ class SearchResultView extends View {
   }
 
   _getQuery() {
-    this._parentElement = document.querySelector(".find-country__search");
+    const searchInput = document.querySelector(".find-country__search-input");
 
-    const query = this._parentElement.querySelector(
-      ".find-country__search-input"
-    ).value;
+    const query = searchInput.value;
 
     return query;
   }
 
   _clear() {
-    this._parentElement = document.querySelector(
-      ".find-country__search-results"
+    const searchResultContainer = document.querySelector(
+      ".find-country__search-results-container"
     );
 
-    this._parentElement.innerHTML = "";
+    searchResultContainer.innerHTML = "";
+  }
+
+  _clearSearchInputValue() {
+    const searchInput = document.querySelector(".find-country__search-input");
+
+    searchInput.value = "";
+  }
+
+  renderSpinner() {
+    const markup = `
+      <div class="spinner">
+        <svg>
+          <use href="src/imgs/icons.svg#icon-loader"></use>
+        </svg>
+      </div>
+    `;
+
+    this._clear();
+
+    const searchResultContainer = document.querySelector(
+      ".find-country__search-results-container"
+    );
+
+    searchResultContainer.insertAdjacentHTML("afterbegin", markup);
+  }
+
+  _renderErrorMessage(error) {
+    const markup = `
+    <div class="error">
+      <div>
+        <svg>
+          <use href="src/imgs/icons.svg#icon-alert-triangle"></use>
+        </svg>
+      </div>
+
+      <p>${error}</p>
+    </div>`;
+
+    this._clear();
+
+    const searchResultContainer = document.querySelector(
+      ".find-country__search-results-container"
+    );
+
+    searchResultContainer.insertAdjacentHTML("afterbegin", markup);
+  }
+
+  _render(data) {
+    this._data = data;
+
+    const markup = this._generateMarkup();
+
+    this._clear();
+
+    const searchResultContainer = document.querySelector(
+      ".find-country__search-results-container"
+    );
+
+    searchResultContainer.insertAdjacentHTML("beforeEnd", markup);
   }
 
   _addHandlerSearchResult(handler) {
-    this._parentElement = document.querySelector(".find-country__search");
+    const searchInput = document.querySelector(".find-country__search-input");
 
-    this._parentElement
-      .querySelector(".find-country__search-input")
-      .addEventListener(
-        "keyup",
-        function () {
-          handler();
+    searchInput.addEventListener(
+      "keyup",
+      async function () {
+        await handler();
 
-          this._parentElement.classList.remove("hide-result-list");
-          this._parentElement.classList.remove("not-open");
-          this._parentElement.classList.add("show-result-list");
-        }.bind(this)
-      );
+        this._parentElement = document.querySelector(
+          ".find-country__search-results"
+        );
+
+        this._parentElement.classList.remove("hide-result-list");
+        this._parentElement.classList.remove("not-open");
+        this._parentElement.classList.add("show-result-list");
+      }.bind(this)
+    );
   }
 
   _addHandlerHidingTheSearchResult() {
@@ -52,7 +112,9 @@ class SearchResultView extends View {
 
         if (searchForm) return;
 
-        console.log("outside the search engine");
+        this._parentElement = document.querySelector(
+          ".find-country__search-results"
+        );
 
         this._parentElement.classList.remove("show-result-list");
         this._parentElement.classList.add("hide-result-list");
@@ -60,17 +122,45 @@ class SearchResultView extends View {
         setTimeout(() => {
           this._parentElement.classList.remove("hide-result-list");
           this._parentElement.classList.add("not-open");
-        }, 2000);
+        }, 500);
       }.bind(this)
     );
   }
 
+  _addHandlerSearchFromTheResults(handler) {
+    this._parentElement.addEventListener(
+      "click",
+      async function (e) {
+        const searchResult = e.target.closest(".find-country__search-result");
+
+        if (!searchResult) return;
+
+        const searchQuery = searchResult.textContent.toLowerCase();
+
+        await handler(searchQuery);
+      }.bind(this)
+    );
+  }
+
+  _addHandlerSearchFromTheFormSubmitted(handler) {
+    this._parentElement.addEventListener(
+      "submit",
+      async function (e) {
+        e.preventDefault();
+
+        await handler(this._getQuery());
+
+        this._clearSearchInputValue();
+      }.bind(this)
+    );
+  }
+
+  _renderCountry(searchResultData) {
+    displayCountryView._render(searchResultData);
+  }
+
   _generateMarkup() {
     const data = [];
-
-    this._parentElement = document.querySelector(
-      ".find-country__search-results"
-    );
 
     for (let i = 0; i < this._data.flags.length; i++) {
       data.push(
