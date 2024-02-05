@@ -16,8 +16,10 @@
   "dependencies": {
     "browser-sync": "^3.0.2",
     "core-js": "^3.35.1",
-    "parcel": "^2.11.0",
     "regenerator-runtime": "^0.14.1",
     "run-script-os": "^1.1.6"
+  },
+  "devDependencies": {
+    "parcel": "^2.11.0"
   }
 }
