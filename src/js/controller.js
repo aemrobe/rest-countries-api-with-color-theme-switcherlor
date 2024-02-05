@@ -5,6 +5,9 @@ import searchResultView from "./view/searchResultView.js";
 import showCountryDetailView from "./view/showCountryDetailView.js";
 import homePageView from "./view/homePageView.js";
 
+import "regenerator-runtime/runtime";
+import "core-js/stable";
+
 const controlDisplayAllCountriesData = async function () {
   try {
     displayCountryView.renderSpinner();

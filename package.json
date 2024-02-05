@@ -1,8 +1,8 @@
 {
   "name": "rest-countries-api-with-color-theme-switcher-master",
   "version": "1.0.0",
-  "description": "![Design preview for the REST Countries API with color theme switcher coding challenge](./design/desktop-preview.jpg)",
-  "main": "index.js",
+  "description": "an application which displays an information about a countries",
+  "default": "index.html",
   "scripts": {
     "start": "run-script-os",
     "start-parcel": "parcel index.html",
@@ -15,7 +15,9 @@
   "license": "ISC",
   "dependencies": {
     "browser-sync": "^3.0.2",
+    "core-js": "^3.35.1",
     "parcel": "^2.11.0",
+    "regenerator-runtime": "^0.14.1",
     "run-script-os": "^1.1.6"
   }
 }
