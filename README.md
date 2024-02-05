@@ -38,7 +38,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [live site URL](https://your-live-site-url.com](https://rest-countries-api-aemro.netlify.app/)
+- Live Site URL: [live site URL](https://rest-countries-api-aemro.netlify.app/)
 
 ## My process
 
