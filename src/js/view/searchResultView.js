@@ -110,7 +110,13 @@ class SearchResultView extends View {
       function (e) {
         const searchForm = e.target.closest(".find-country__search");
 
+        const searchResults = document.querySelector(
+          ".find-country__search-results"
+        );
+
         if (searchForm) return;
+
+        if (!searchResults.classList.contains("show-result-list")) return;
 
         this._parentElement = document.querySelector(
           ".find-country__search-results"
