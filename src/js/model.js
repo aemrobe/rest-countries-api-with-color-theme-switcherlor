@@ -35,7 +35,7 @@ export const loadAllCountriesData = async function () {
 
     for (let i = 0; i < data.length; i++) {
       state.flags.push(data[i].flags);
-      state.countries.push(data[i].name.common);
+      state.countries.push(data[i].name?.common);
       state.populations.push(data[i].population);
       state.regions.push(data[i].continents[0]);
       state.capitals.push(data[i].capital[0]);
@@ -59,11 +59,21 @@ export const loadSearchResult = async function (query) {
     state.results.regions = [];
 
     for (let i = 0; i < result.length; i++) {
-      state.results.flags.push(result[i].flags);
-      state.results.countries.push(result[i].name.common);
-      state.results.populations.push(result[i].population);
-      state.results.regions.push(result[i].continents[0]);
-      state.results.capitals.push(result[i].capital[0]);
+      state.results.flags.push(
+        result[i].flags ? result[i].flags : "No flag Data"
+      );
+      state.results.countries.push(
+        result[i].name?.common ? result[i].name?.common : "No Country Name data"
+      );
+      state.results.populations.push(
+        result[i].population ? result[i].population : "No Population data"
+      );
+      state.results.regions.push(
+        result[i].continents[0] ? result[i].continents : "No Continent data"
+      );
+      state.results.capitals.push(
+        result[i].capital[0] ? result[i].capital : "No Capital City data"
+      );
     }
   } catch (err) {
     throw err;
@@ -85,10 +95,18 @@ export const loadCountriesByRegion = async function (regionQuery) {
 
     for (let i = 0; i < result.length; i++) {
       state.countriesInsideTheRegion.flags.push(result[i].flags);
-      state.countriesInsideTheRegion.countries.push(result[i].name.common);
-      state.countriesInsideTheRegion.populations.push(result[i].population);
-      state.countriesInsideTheRegion.regions.push(result[i].continents[0]);
-      state.countriesInsideTheRegion.capitals.push(result[i].capital[0]);
+      state.countriesInsideTheRegion.countries.push(
+        result[i].name?.common ? result[i].name?.common : "No Country name data"
+      );
+      state.countriesInsideTheRegion.populations.push(
+        result[i].population ? result[i].population : "No Population data"
+      );
+      state.countriesInsideTheRegion.regions.push(
+        result[i].continents[0] ? result[i].continents[0] : "No Continent data"
+      );
+      state.countriesInsideTheRegion.capitals.push(
+        result[i].capital[0] ? result[i].capital[0] : "No Capital City data"
+      );
     }
   } catch (err) {
     throw err;
@@ -103,19 +121,20 @@ export const showCountryDetail = async function (countryElement) {
     );
 
     state.displayedCountryDetail.flag = result.flags;
-    state.displayedCountryDetail.countryName = result.name.common;
+    state.displayedCountryDetail.countryName = result.name?.common;
 
     //assigning the value of the nativeName of the country
-    const { ...Name } = result.name.nativeName;
+    if (result.name?.nativeName) {
+      const { ...Name } = result.name.nativeName;
+      for (const key in Name) {
+        if (Name.hasOwnProperty(key)) {
+          state.displayedCountryDetail.nativeName = Name[key].common;
 
-    for (const key in Name) {
-      if (Name.hasOwnProperty(key)) {
-        state.displayedCountryDetail.nativeName = Name[key].common
-          ? Name[key].common
-          : "No Native Name";
-
-        break;
+          break;
+        }
       }
+    } else {
+      state.displayedCountryDetail.nativeName = "No Native Name";
     }
 
     state.displayedCountryDetail.population = result.population;
@@ -123,28 +142,39 @@ export const showCountryDetail = async function (countryElement) {
     state.displayedCountryDetail.subRegion = result.subregion
       ? result.subregion
       : "No subregion";
-    state.displayedCountryDetail.capital = result.capital;
-    state.displayedCountryDetail.topLevelDomain = result.tld[0];
+    state.displayedCountryDetail.capital = result.capital
+      ? result.capital
+      : "No capital City";
+    state.displayedCountryDetail.topLevelDomain = result.tld[0]
+      ? result.tld[0]
+      : "No TLD";
 
     //assigning the value of the currency of the country
-    const { ...currency } = result.currencies;
+    if (result.currencies) {
+      const { ...currency } = result.currencies;
+      for (const key in currency) {
+        state.displayedCountryDetail.currency = currency[key].name;
 
-    for (const key in currency) {
-      state.displayedCountryDetail.currency = currency[key].name;
-
-      break;
+        break;
+      }
+    } else {
+      state.displayedCountryDetail.currency = "No Currency data";
     }
 
     //assigning the value of the language of the country
-    const { ...language } = result.languages;
+    if (result.languages) {
+      const { ...language } = result.languages;
 
-    let languages = [];
+      let languages = [];
 
-    for (const key in language) {
-      languages.push(language[key]);
+      for (const key in language) {
+        languages.push(language[key]);
+      }
+
+      state.displayedCountryDetail.languages = languages.join(", ");
+    } else {
+      state.displayedCountryDetail.languages = "No Language data";
     }
-
-    state.displayedCountryDetail.languages = languages.join(", ");
 
     //assigning the value of the border of the country
     let borderCountries = result.borders;

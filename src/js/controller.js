@@ -82,6 +82,7 @@ const controlShowCountriesDetail = async function (countryElement) {
     showCountryDetailView._render(model.state.displayedCountryDetail);
   } catch (err) {
     showCountryDetailView._renderErrorMessage(err);
+    console.log(err);
   }
 };
 

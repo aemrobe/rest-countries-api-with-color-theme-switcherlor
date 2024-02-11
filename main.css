@@ -241,11 +241,15 @@ main {
   position: relative;
   margin-top: 5rem;
   background: var(--White);
+}
+
+.find-country__filter-countries__wrapper {
   display: flex;
   justify-content: space-between;
 }
 
 .find-country__filter-region-list {
+  z-index: 1;
   background-color: var(--White);
   border-radius: 7px;
   padding: 2rem 3rem;
