@@ -2,7 +2,7 @@ class FilterView {
   _parentElement = document.querySelector(".find-country__filter-countries");
 
   constructor() {
-    this._addHandlerShowDropDown();
+    this._addHandlerHandleDropDown();
     this._addHandlerCloseDropDown();
   }
 
@@ -14,6 +14,14 @@ class FilterView {
           ".find-country__filter-countries"
         );
 
+        const clickDarkMode = e.target.closest(".theme-switcher");
+
+        const clickInsideSearchInput = e.target.closest(
+          ".find-country__search"
+        );
+
+        const clickTheTitle = e.target.closest(".title");
+
         const expandIcon = document.querySelector(
           ".find-country__filter-icons"
         );
@@ -21,13 +29,18 @@ class FilterView {
         const expandIconSronlyText = expandIcon.querySelector(".sr-only");
 
         //if the user clicks outside of the filter countries close the drop down
-        if (!insideFilterCountries) {
+        if (
+          !insideFilterCountries &&
+          !clickDarkMode &&
+          !clickInsideSearchInput &&
+          !clickTheTitle
+        ) {
           if (expandIconSronlyText.innerText.includes("expand")) {
             const targetIconElement =
               expandIconSronlyText.previousElementSibling;
 
-            targetIconElement.classList.remove("fa-chevron-up");
-            targetIconElement.classList.add("fa-chevron-down");
+            targetIconElement.classList.remove("fa-chevron-down");
+            targetIconElement.classList.add("fa-chevron-up");
             this._parentElement.classList.remove("expand-drop-down");
             this._parentElement.classList.add("collapse");
             expandIconSronlyText.innerText = "arrow collapse";
@@ -42,36 +55,40 @@ class FilterView {
     );
   }
 
-  _addHandlerShowDropDown() {
+  _addHandlerHandleDropDown() {
     this._parentElement.addEventListener(
       "click",
       function (e) {
-        const expandIcon = e.target.closest(".find-country__filter-icons");
+        const filterContainer = e.target.closest(
+          ".find-country__filter-countries__wrapper"
+        );
 
         /*return from the function when the user clicks outside of the collapse icon*/
-        if (!expandIcon) return;
+        if (!filterContainer) return;
 
         const targetElement = this._parentElement.querySelector(".sr-only");
-        const collapseIcon = targetElement.previousElementSibling;
+        const expandedIcon = targetElement.previousElementSibling;
 
-        if (targetElement.innerText.includes("collapse")) {
-          collapseIcon.classList.remove("fa-chevron-down");
-          collapseIcon.classList.add("fa-chevron-up");
-          this._parentElement.classList.remove("collapse");
-          this._parentElement.classList.remove("not-open");
-          this._parentElement.classList.add("expand-drop-down");
-          targetElement.innerText = "arrow expand";
-        } else if (targetElement.innerText.includes("expand")) {
-          collapseIcon.classList.remove("fa-chevron-up");
-          collapseIcon.classList.add("fa-chevron-down");
+        if (targetElement.innerText.includes("expanded")) {
+          expandedIcon.classList.remove("fa-chevron-down");
+          expandedIcon.classList.add("fa-chevron-up");
           this._parentElement.classList.remove("expand-drop-down");
           this._parentElement.classList.add("collapse");
+
           targetElement.innerText = "arrow collapse";
 
           setTimeout(() => {
             this._parentElement.classList.remove("collapse");
             this._parentElement.classList.add("not-open");
           }, 500);
+        } else if (targetElement.innerText.includes("collapse")) {
+          expandedIcon.classList.remove("fa-chevron-up");
+          expandedIcon.classList.add("fa-chevron-down");
+          this._parentElement.classList.remove("not-open");
+          this._parentElement.classList.add("expand-drop-down");
+
+          this._parentElement.classList.remove("collapse");
+          targetElement.innerText = "arrow expanded";
         }
       }.bind(this)
     );
