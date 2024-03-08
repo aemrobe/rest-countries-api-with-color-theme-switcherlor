@@ -32,6 +32,7 @@ img {
   --Dark-Gray: hsl(0, 0%, 52%);
   --Very-Light-Gray: hsl(0, 0%, 98%);
   --White: hsl(0, 0%, 100%);
+  --shadowColor: rgba(0, 0, 0, 0.1);
 
   --font-ff-Nunito-sans-light: "Nunito-Sans-light";
   --font-ff-Nunito-sans-medium: "Nunito-Sans-medium";
@@ -71,6 +72,12 @@ header {
 .theme-switcher {
   display: flex;
   align-items: center;
+}
+
+.theme-switcher:focus {
+  outline: none;
+  padding: 0.5rem;
+  box-shadow: 0 0 8px var(--shadowColor);
 }
 
 .theme-switcher__mode {
@@ -471,6 +478,7 @@ footer {
 .dark {
   --Dark-Blue: hsl(210, 22%, 22%);
   --Very-Dark-Blue: hsl(205, 26%, 17%);
+  --shadow-color: rgba(255, 255, 255);
 }
 
 body.dark {
@@ -515,6 +523,10 @@ body.dark .spinner svg {
 
 body.dark .page-detail__text-item-title {
   color: var(--Very-Light-Gray);
+}
+
+body.dark .theme-switcher:focus {
+  box-shadow: 0 0 8px var(--shadow-color);
 }
 
 @media (min-width: 27.875rem) {

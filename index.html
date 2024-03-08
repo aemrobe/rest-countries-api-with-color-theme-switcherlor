@@ -23,11 +23,17 @@
       <header>
         <p class="title">Where in the world?</p>
 
-        <div class="theme-switcher">
+        <div
+          class="theme-switcher"
+          role="button"
+          aria-pressed="false"
+          aria-label="Toggle Dark Mode"
+          tabindex="0"
+        >
           <div class="theme-switcher__icon">
             <span class="fa-solid fa-moon"></span>
 
-            <p class="sr-only">icon which shows the page is in light mode</p>
+            <p class="sr-only">the page is in light mode</p>
           </div>
 
           <p class="theme-switcher__mode">Dark Mode</p>
