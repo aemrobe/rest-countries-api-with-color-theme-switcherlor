@@ -41,7 +41,7 @@ export default class View {
         </svg>
       </div>
 
-      <p>${error}</p>
+      <p role="alert"  tabindex="0" aria-hidden="true">${error}</p>
     </div>`;
 
     this._clear();

@@ -1,5 +1,6 @@
 import View from "./view.js";
 import displayCountryView from "./displayCountryView.js";
+import icons from "url:../../imgs/icons.svg";
 
 class SearchResultView extends View {
   _parentElement = document.querySelector(".find-country__search");
@@ -34,10 +35,12 @@ class SearchResultView extends View {
 
   renderSpinner() {
     const markup = `
-      <div class="spinner">
-        <svg>
-          <use href="src/imgs/icons.svg#icon-loader"></use>
+       <div class="spinner">
+        <svg aria-hidden="true">
+          <use href="${icons}#icon-loader"></use>
         </svg>
+
+        <span class="sr-only">Loading...</span>
       </div>
     `;
 
@@ -55,11 +58,11 @@ class SearchResultView extends View {
     <div class="error">
       <div>
         <svg>
-          <use href="src/imgs/icons.svg#icon-alert-triangle"></use>
+          <use href="${icons}#icon-alert-triangle"></use>
         </svg>
       </div>
 
-      <p>${error}</p>
+      <p role="alert"  tabindex="0" aria-hidden="true">${error}</p>
     </div>`;
 
     this._clear();
