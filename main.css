@@ -313,6 +313,7 @@ input:focus,
 }
 
 .list-of-countries {
+  list-style-type: none;
   margin-top: 3.125rem;
 }
 

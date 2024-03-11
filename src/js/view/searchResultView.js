@@ -210,9 +210,9 @@ class SearchResultView extends View {
 
     for (let i = 0; i < this._data.flags.length; i++) {
       data.push(
-        ` <p role="button" tabindex="0" class="find-country__search-result result-${
+        ` <li role="button" tabindex="0" class="find-country__search-result result-${
           i + 1
-        }">${this._data.countries[i]}</p>`
+        }">${this._data.countries[i]}</li>`
       );
     }
 

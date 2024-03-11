@@ -139,18 +139,18 @@ class ShowCountryDetailView extends View {
                 Border Countries:
               </p>
 
-              <div class="page-detail__text-item-container">
+              <ul class="page-detail__text-item-container">
               ${this._data.borderCountries
                 .map(this._displayBorderCountries)
                 .join("")}
-            </div>
+            </ul>
             </div>
           </div>
         </div>`;
   }
 
   _displayBorderCountries(borderCountry) {
-    return `   <p class="page-detail__text-item-border" tabindex = "0" aria-label="border country" role="button">${borderCountry}</p>`;
+    return `<li class="page-detail__text-item-border" tabindex = "0" aria-label="border country" role="button">${borderCountry}</li>`;
   }
 
   _addHandlerShowBorderCountryDetail(handler) {

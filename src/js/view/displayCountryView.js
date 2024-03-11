@@ -7,7 +7,7 @@ class DisplayCountryView extends View {
     const data = [];
 
     for (let i = 0; i < this._data.flags.length; i++) {
-      data.push(`<div class="country" tabindex="0" aria-label="country" role="button">    
+      data.push(`<li class="country" tabindex="0" aria-label="country" role="button">    
         <div class="image-container">
           <img src="${this._data.flags[i].png}" alt="${
         this._data.flags[i].alt === ""
@@ -38,7 +38,7 @@ class DisplayCountryView extends View {
               </div>
             </div>
           </div>
-        </div>`);
+        </li>`);
     }
 
     return data.join("");
