@@ -274,6 +274,23 @@ main {
   display: grid;
 }
 
+label:focus,
+input:focus,
+.find-country__filter-region-list:focus,
+.find-country__filter-region-item:focus,
+.title:focus,
+.find-country__search-results:focus,
+.country:focus,
+.back-btn:focus,
+.page-detail__text-item-border:focus {
+  outline: 2px solid var(--Dark-Gray);
+}
+
+.find-country__search-result:focus {
+  outline: none;
+  border-bottom: 2px solid var(--Dark-Gray);
+}
+
 .find-country__filter-countries.not-open .find-country__filter-region-list {
   display: none;
 }

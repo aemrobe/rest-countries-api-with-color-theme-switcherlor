@@ -52,6 +52,11 @@ class homePageView extends View {
   _addHandlerClickOnWhereInTheWorld(handler) {
     const title = document.querySelector(".title");
 
+    title.addEventListener("keyup", function (e) {
+      if (e.key === "Enter") {
+        handler();
+      }
+    });
     title.addEventListener("click", function () {
       handler();
     });

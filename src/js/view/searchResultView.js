@@ -107,46 +107,83 @@ class SearchResultView extends View {
     );
   }
 
+  _closeTheSearchResult = function () {
+    const searchResults = document.querySelector(
+      ".find-country__search-results"
+    );
+
+    if (!searchResults.classList.contains("show-result-list")) return;
+
+    this._parentElement = document.querySelector(
+      ".find-country__search-results"
+    );
+
+    this._parentElement.classList.remove("show-result-list");
+    this._parentElement.classList.add("hide-result-list");
+
+    setTimeout(() => {
+      this._parentElement.classList.remove("hide-result-list");
+      this._parentElement.classList.add("not-open");
+    }, 500);
+  };
+
   _addHandlerHidingTheSearchResult() {
     document.addEventListener(
       "click",
       function (e) {
         const searchForm = e.target.closest(".find-country__search");
 
-        const searchResults = document.querySelector(
-          ".find-country__search-results"
-        );
-
         if (searchForm) return;
 
-        if (!searchResults.classList.contains("show-result-list")) return;
-
-        this._parentElement = document.querySelector(
-          ".find-country__search-results"
-        );
-
-        this._parentElement.classList.remove("show-result-list");
-        this._parentElement.classList.add("hide-result-list");
-
-        setTimeout(() => {
-          this._parentElement.classList.remove("hide-result-list");
-          this._parentElement.classList.add("not-open");
-        }, 500);
+        this._closeTheSearchResult();
       }.bind(this)
     );
   }
 
   _addHandlerSearchFromTheResults(handler) {
-    this._parentElement.addEventListener(
-      "click",
+    const searchFromTheResults = async function (e) {
+      const searchResult = e.target.closest(".find-country__search-result");
+
+      if (!searchResult) return;
+
+      const searchQuery = searchResult.textContent.toLowerCase();
+
+      await handler(searchQuery);
+
+      this._closeTheSearchResult();
+    }.bind(this);
+
+    this._parentElement.addEventListener("click", searchFromTheResults);
+
+    document.addEventListener(
+      "keyup",
       async function (e) {
-        const searchResult = e.target.closest(".find-country__search-result");
+        if (
+          e.key === "Enter" &&
+          e.target.closest(".find-country__search-result")
+        ) {
+          await searchFromTheResults(e);
+        } else if (e.key === "Tab") {
+          const searchResultContainer = document.querySelector(
+            ".find-country__search-results-container"
+          );
 
-        if (!searchResult) return;
+          const lastSearchResult = searchResultContainer.lastElementChild;
 
-        const searchQuery = searchResult.textContent.toLowerCase();
-
-        await handler(searchQuery);
+          if (document.activeElement === lastSearchResult) {
+            document.addEventListener(
+              "focusin",
+              function (event) {
+                // Check if the next focused element is outside the search results container
+                if (!searchResultContainer.contains(event.target)) {
+                  // Close the search results
+                  this._closeTheSearchResult();
+                }
+              }.bind(this),
+              { once: true }
+            );
+          }
+        }
       }.bind(this)
     );
   }
@@ -173,9 +210,9 @@ class SearchResultView extends View {
 
     for (let i = 0; i < this._data.flags.length; i++) {
       data.push(
-        ` <p class="find-country__search-result result-${i + 1}">${
-          this._data.countries[i]
-        }</p>`
+        ` <p role="button" tabindex="0" class="find-country__search-result result-${
+          i + 1
+        }">${this._data.countries[i]}</p>`
       );
     }
 

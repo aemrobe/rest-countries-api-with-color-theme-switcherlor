@@ -8,19 +8,27 @@ class ShowCountryDetailView extends View {
   }
 
   _addHandlerBackToTheHomePage(handler) {
-    this._parentElement.addEventListener("click", function (e) {
+    const backToHomePage = function (e) {
       const backBtn = e.target.closest(".back-btn");
 
       if (!backBtn) return;
 
       handler();
+    };
+
+    this._parentElement.addEventListener("click", backToHomePage);
+
+    this._parentElement.addEventListener("keyup", function (e) {
+      if (e.key === "Enter") {
+        backToHomePage();
+      }
     });
   }
 
   _addHanlderShowCountryDetail(handler) {
     const listOfCountries = document.querySelector(".list-of-countries");
 
-    listOfCountries.addEventListener("click", function (e) {
+    const showCountryDetail = function (e) {
       const clickedCountryItem = e.target.closest(".country");
 
       if (!clickedCountryItem) return;
@@ -30,11 +38,21 @@ class ShowCountryDetailView extends View {
         .textContent.trim();
 
       handler(countryName);
+    };
+
+    listOfCountries.addEventListener("click", function (e) {
+      showCountryDetail(e);
+    });
+
+    listOfCountries.addEventListener("keyup", function (e) {
+      if (e.key === "Enter") {
+        showCountryDetail(e);
+      }
     });
   }
 
   _generateMarkup() {
-    return `   <button class="back-btn">
+    return `   <button class="back-btn" aria-label="Back To Previous page">
           <span class="fa-solid fa-arrow-left"></span>
           Back
         </button>
@@ -132,11 +150,11 @@ class ShowCountryDetailView extends View {
   }
 
   _displayBorderCountries(borderCountry) {
-    return `   <p class="page-detail__text-item-border">${borderCountry}</p>`;
+    return `   <p class="page-detail__text-item-border" tabindex = "0" aria-label="border country" role="button">${borderCountry}</p>`;
   }
 
   _addHandlerShowBorderCountryDetail(handler) {
-    this._parentElement.addEventListener("click", function (e) {
+    const showCountryDetail = function (e) {
       const borderCountry = e.target.closest(".page-detail__text-item-border");
 
       if (!borderCountry) return;
@@ -144,6 +162,14 @@ class ShowCountryDetailView extends View {
       const borderCountryName = borderCountry.textContent.trim();
 
       handler(borderCountryName);
+    };
+
+    this._parentElement.addEventListener("click", showCountryDetail);
+
+    this._parentElement.addEventListener("keyup", function (e) {
+      if (e.key === "Enter") {
+        showCountryDetail(e);
+      }
     });
   }
 }

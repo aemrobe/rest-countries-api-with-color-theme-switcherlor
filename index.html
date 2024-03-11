@@ -21,7 +21,14 @@
   <body>
     <div class="header-container">
       <header>
-        <p class="title">Where in the world?</p>
+        <p
+          class="title"
+          role="button"
+          tabindex="0"
+          aria-label="search whole countries"
+        >
+          Where in the world?
+        </p>
 
         <div
           class="theme-switcher"
@@ -67,7 +74,11 @@
               />
 
               <!--search results-->
-              <div class="find-country__search-results not-open">
+              <div
+                class="find-country__search-results not-open"
+                tabindex="0"
+                aria-label="list of search results"
+              >
                 <div class="find-country__search-results-container"></div>
               </div>
             </form>
@@ -75,7 +86,12 @@
             <!--filter by region-->
             <div class="find-country__filter-countries expand-drop-down">
               <div class="find-country__filter-countries__wrapper">
-                <p class="find-country__filter-mode">Filter by Region</p>
+                <label
+                  tabindex="0"
+                  for="filter-options"
+                  class="find-country__filter-mode"
+                  >Filter by Region</label
+                >
 
                 <div class="find-country__filter-icons">
                   <span class="fa-solid fa-chevron-down"></span>
@@ -85,29 +101,50 @@
               </div>
 
               <!--filter regions-->
-              <div class="find-country__filter-region-list">
+              <div
+                id="filter-options"
+                class="find-country__filter-region-list"
+                tabindex="0"
+              >
                 <div class="find-country__region-list-container">
                   <p
+                    tabindex="0"
+                    role="button"
+                    aria-label="Filter by Africa"
                     class="find-country__filter-region-item find-country__filter-region-item--1"
                   >
                     Africa
                   </p>
                   <p
+                    tabindex="0"
+                    role="button"
+                    aria-label="Filter by  America"
                     class="find-country__filter-region-item find-country__filter-region-item--2"
                   >
                     America
                   </p>
                   <p
+                    tabindex="0"
+                    role="button"
+                    aria-label="Filter by   Asia"
                     class="find-country__filter-region-item find-country__filter-region-item--3"
                   >
                     Asia
                   </p>
+
                   <p
+                    tabindex="0"
+                    role="button"
+                    aria-label="Filter by   Europe"
                     class="find-country__filter-region-item find-country__filter-region-item--4"
                   >
                     Europe
                   </p>
+
                   <p
+                    tabindex="0"
+                    role="button"
+                    aria-label="Filter by     Oceania"
                     class="find-country__filter-region-item find-country__filter-region-item--5"
                   >
                     Oceania

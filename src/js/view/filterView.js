@@ -1,9 +1,54 @@
 class FilterView {
   _parentElement = document.querySelector(".find-country__filter-countries");
-
+  _filterByRegion = document.querySelector('label[for = "filter-options"');
+  _filterByRegionContainer = document.querySelector(
+    ".find-country__filter-countries"
+  );
   constructor() {
-    this._addHandlerHandleDropDown();
-    this._addHandlerCloseDropDown();
+    // this._addHandlerHandleDropDown();
+    // this._addHandlerCloseDropDown();
+
+    this._addHandlerFocus();
+  }
+
+  _addHandlerFocus() {
+    this._filterByRegionContainer.addEventListener("click", function (e) {
+      const label = e.target.closest("label[for='filter-options']");
+
+      if (label) {
+        const filterRegionList = document.querySelector(
+          ".find-country__filter-region-list"
+        );
+
+        filterRegionList.focus();
+      }
+    });
+  }
+
+  _addHandlerNavigationByKeyboard(handler) {
+    this._filterByRegionContainer.addEventListener("keyup", function (e) {
+      const filterRegion = e.target.closest(
+        ".find-country__filter-region-item"
+      );
+
+      const label = e.target.closest(".find-country__filter-mode");
+
+      if (label) {
+        if (e.key !== "Enter") return;
+
+        const filterRegionList = document.querySelector(
+          ".find-country__filter-region-list"
+        );
+
+        filterRegionList.focus();
+      } else if (filterRegion) {
+        if (e.key !== "Enter") return;
+
+        const filterRegionItem = filterRegion.textContent.trim().toLowerCase();
+
+        handler(filterRegionItem);
+      }
+    });
   }
 
   _addHandlerCloseDropDown() {

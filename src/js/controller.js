@@ -7,7 +7,7 @@ import homePageView from "./view/homePageView.js";
 
 import "regenerator-runtime/runtime.js";
 
-import "core-js/stable";
+// import "core-js/stable";
 
 const controlDisplayAllCountriesData = async function () {
   try {
@@ -122,6 +122,7 @@ const init = function () {
     controlSearchFromResult
   );
   filterView._addHandlerFilterByRegion(controlFilterCountriesByRegion);
+  filterView._addHandlerNavigationByKeyboard(controlFilterCountriesByRegion);
   showCountryDetailView._addHanlderShowCountryDetail(
     controlShowCountriesDetail
   );
